@@ -23,7 +23,7 @@ public class Product {
     private Long id_product;
     @NotEmpty
     @Size(min = 3,max = 50)
-    private String name_product;
+    private String name;
     @Min(0)
     private Double price ;
     @Min(1)

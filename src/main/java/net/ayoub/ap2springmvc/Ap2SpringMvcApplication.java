@@ -20,17 +20,17 @@ public class Ap2SpringMvcApplication {
     public CommandLineRunner start(ProductRepository productRepository){
         return args -> {
             productRepository.save(Product.builder()
-                    .name_product("Computer")
+                    .name("Computer")
                     .price(5500.0)
                     .quantite(4)
                     .build());
             productRepository.save(Product.builder()
-                    .name_product("Printer")
+                    .name("Printer")
                     .price(3200.0)
                     .quantite(2)
                     .build());
             productRepository.save(Product.builder()
-                    .name_product("Smart Phone")
+                    .name("Smart Phone")
                     .price(6000.0)
                     .quantite(5)
                     .build());
