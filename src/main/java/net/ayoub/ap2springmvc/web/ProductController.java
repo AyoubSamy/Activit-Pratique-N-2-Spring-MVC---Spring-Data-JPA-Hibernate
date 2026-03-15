@@ -1,5 +1,6 @@
 package net.ayoub.ap2springmvc.web;
 
+import groovy.lang.GString;
 import jakarta.validation.Valid;
 import net.ayoub.ap2springmvc.entities.Product;
 import net.ayoub.ap2springmvc.repository.ProductRepository;
@@ -18,7 +19,7 @@ public class ProductController {
     @Autowired
     public ProductRepository productRepository;
 
-    @GetMapping("/index")
+    @GetMapping("/user/index")
     public String index(Model model){
         List<Product> products  = productRepository.findAll();
         model.addAttribute("productList",products);
@@ -27,21 +28,30 @@ public class ProductController {
 
     @GetMapping("/")
     public String index(){
-        return "redirect:/index";
+        return "redirect:/user/index";
     }
-    @GetMapping("/newProduct")
+
+    @GetMapping("/admin/newProduct")
     public String newProduct(Model model){
         model.addAttribute("product",new Product());
         return "new-product";
     }
-    @GetMapping("/delete")
+    @GetMapping("/admin/delete")
     public String delete(@RequestParam(name =  "id") Long id){
         productRepository.deleteById(id);
-        return "redirect:/index";
+        return "redirect:/user/index";
     }
-    @PostMapping("/saveProduct")
-    public String saveProduct(@Valid Product product, BindingResult buindingResults // stocke la liste des erreurs){
+    @PostMapping("/admin/saveProduct")
+    public String saveProduct(@Valid Product product, BindingResult bindingResults,Model model){
+        //BindingResults sert a stocker la liste des erreurs
+        if(bindingResults.hasErrors()) return "new-product";
+        productRepository.save(product);
+        return "redirect:/admin/newProduct";
+    }
 
+    @GetMapping("/notAuthorized")
+    public String notAutorized(){
+        return"notAuthorized";
     }
 
 }
