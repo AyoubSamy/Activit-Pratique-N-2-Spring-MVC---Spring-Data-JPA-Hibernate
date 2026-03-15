@@ -28,9 +28,10 @@
                 <td th:text = "${p.price}"></td>
                 <td th:text = "${p.quantite}"></td>
                 <td sec:authorize="hasRole('ADMIN')">
-                    <a class="btn btn-danger" onclick="return confirm('Etes vous sure ?')" th:href="@{/admin/delete(id=${p.id_product})}">Delete</a>
+                    <form method="post" th:action="@{/admin/delete(id=${p.id_product})}">
+                         <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
                 </td>
-
             </tr>
        </tbody>
    </table>
